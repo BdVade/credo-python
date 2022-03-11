@@ -1,0 +1,2 @@
+SECRET_KEY = "sk_demo-dmq2ZsiZ23sKbgHBAZvRhQ25qBtnD1.7HWfBSGEZX-d"
+PUBLIC_KEY = "pk_demo-fKq5DnKgI3ISchDxVEySOS4Z9X4hck.D1gJjoVG5p-d"

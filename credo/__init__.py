@@ -13,15 +13,14 @@ class CredoBase:
                                    'Authorization': secret_key}
 
     def get(self, url: str, headers: dict = None, ):
-        return requests.get(url=url, headers=headers or self.public_key_headers)
+        return requests.get(url=url, headers=headers or self.public_key_headers).json()
 
     def post(self, url: str, data: Union[dict, None] = None, headers: Union[None, dict] = None):
-        # TODO: Decide what part of the response to return
-        return requests.post(url, json=data, headers=headers or self.public_key_headers)
+        return requests.post(url, json=data, headers=headers or self.public_key_headers).json()
 
     def patch(self, url: str, data: Union[dict, None] = None, headers: Union[None, dict] = None):
         if data:
-            return requests.patch(url=url, json=data, headers=headers or self.public_key_headers)
+            return requests.patch(url=url, json=data, headers=headers or self.public_key_headers).json()
         else:
-            return requests.patch(url=url, headers=headers or self.public_key_headers)
+            return requests.patch(url=url, headers=headers or self.public_key_headers).json()
 
