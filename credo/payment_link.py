@@ -17,16 +17,17 @@ class PaymentLink(CredoBase):
 
             Methods
             -------
-            create_payment_link()
-            get_payment_link_by_id()
-            update_payment_link()
-            get_payment_link_by_slug()
-            post_payment_link_transaction()
-            get_payment_link_transactions()
-            get_payment_link_transaction_by_id()
-            get_customers()
+            create_link()
+            get_by_id()
+            update_link()
+            get_by_slug()
+            post_link_transaction()
+            get_link_transactions()
+            get_link_transaction_by_id()
+
 
             """
+
     def __init__(self, public_key: str, secret_key: str):
         """
 
@@ -35,9 +36,9 @@ class PaymentLink(CredoBase):
         """
         super().__init__(public_key=public_key, secret_key=secret_key)
 
-    def create_payment_link(self, name: str, description: str, type_id: int, amount: int, redirect_url: str,
-                            success_message: str, phone_number: str, currencies: str,
-                            custom_fields: Union[dict, None] = None):
+    def create_link(self, name: str, description: str, type_id: int, amount: int, redirect_url: str,
+                    success_message: str, phone_number: str, currencies: str,
+                    custom_fields: Union[list, None] = None):
         """
 
         :param name:
@@ -53,7 +54,7 @@ class PaymentLink(CredoBase):
         :return:
             A Json Response from Credo
         """
-        url = f"{self.BASE_URL}//third-party/payment-links/links"
+        url = f"{self.BASE_URL}/third-party/payment-links/links"
 
         body = {
             "name": name,
@@ -66,12 +67,12 @@ class PaymentLink(CredoBase):
             "currencies": currencies,
         }
         if custom_fields:
-            custom_fields_string = ",".join(f"{k}|{v}" for k, v in custom_fields.items())
+            custom_fields_string = "|".join(i for i in custom_fields)
             body["customFields"] = custom_fields_string
 
         return self.post(url=url, data=body)
 
-    def get_payment_link_by_id(self, link_id: int):
+    def get_by_id(self, link_id: int):
         """
 
         :param link_id:
@@ -82,10 +83,10 @@ class PaymentLink(CredoBase):
         url = f"{self.BASE_URL}/third-party/payment-links/links/{link_id}"
         return self.get(url)
 
-    def update_payment_link(self, link_id: int, name: str, description: str, type_id: int, amount: int,
-                            redirect_url: str,
-                            success_message: str, phone_number: str, currencies: str,
-                            custom_fields: Union[dict, None] = None):
+    def update_link(self, link_id: int, name: str, description: str, type_id: int, amount: int,
+                    redirect_url: str,
+                    success_message: str, phone_number: str, currencies: str,
+                    custom_fields: Union[list, None] = None):
         """
 
         :param link_id:
@@ -114,12 +115,13 @@ class PaymentLink(CredoBase):
             "currencies": currencies,
         }
         if custom_fields:
-            custom_fields_string = ",".join(f"{k}|{v}" for k, v in custom_fields.items())
+            custom_fields_string = "|".join(i for i in custom_fields)
+            # custom_fields_string = ",".join(f"{k}|{v}" for k, v in custom_fields.items())
             body["customFields"] = custom_fields_string
 
         return self.patch(url=url, data=body)
 
-    def get_payment_link_by_slug(self, link_slug: str):
+    def get_by_slug(self, link_slug: str):
         """
 
         :param link_slug:
@@ -129,10 +131,10 @@ class PaymentLink(CredoBase):
         url = f"{self.BASE_URL}/third-party/payment-links/fetch-details-by-slug/{link_slug}"
         return self.get(url)
 
-    def post_payment_link_transaction(self, link_slug: str, currency: str, first_name: str, last_name: str,
-                                      amount: int, email: str,
-                                      reason: str, address: str, phone_number: str,
-                                      custom_fields: Union[dict, None] = None):
+    def post_link_transaction(self, link_slug: str, currency: str, first_name: str, last_name: str,
+                              amount: int, email: str,
+                              reason: str, address: str, phone_number: str,
+                              custom_fields: Union[dict, None] = None):
         """
 
         :param link_slug:
@@ -162,12 +164,13 @@ class PaymentLink(CredoBase):
         }
 
         if custom_fields:
+            print('here')
             custom_fields_string = "|".join(f"{k}:{v}" for k, v in custom_fields.items())
             body["customFields"] = custom_fields_string
 
-        self.post(url=url, data=body)
+        return self.post(url=url, data=body)
 
-    def get_payment_link_transactions(self):
+    def get_link_transactions(self):
         """
 
         :return:
@@ -176,22 +179,15 @@ class PaymentLink(CredoBase):
         url = f"{self.BASE_URL}/third-party/payment-links/transactions"
         return self.get(url=url)
 
-    def get_payment_link_transaction_by_id(self, transaction_id: int):
+    def get_link_transaction_by_id(self, link_id: int):
         """
 
-        :param transaction_id:
+        :param link_id:
 
         :return:
          A JSON Response from Credo
-        """
-        url = f"{self.BASE_URL}/third-party/payment-links/transactions/{transaction_id}"
-        return self.get(url=url)
 
-    def get_customers(self):
-        """
 
-        :return:
-        A Json Response from Credo
         """
-        url = f"{self.BASE_URL}/third-party/customers"
+        url = f"{self.BASE_URL}/third-party/payment-links/transactions/{link_id}"
         return self.get(url=url)

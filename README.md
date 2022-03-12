@@ -123,8 +123,45 @@ status, verify_payment = payment.verify_payment(transaction_reference='iy67f64hv
 ### Payment Link
 methods
 
+- create_payment_link
+- get_payment_link_by_id
+- update_payment_link
+- get_payment_link_by_slug
+- post_payment_link_transaction
+- get_payment_link_transactions
+- get_payment_link_transaction_by_id
+- get_customers
+```python
+
+from credo.payment_link import PaymentLink
+
+_link = PaymentLink(public_key='your-public-key', secret_key='your-secret-key')
+
+# create a payment link
+payment_link = _link.create_payment_link(name="Random", description="Random stuff", type_id=1,
+                                         redirect_url='https://github.com/BdVade/credo-python',
+                                         amount=3000, success_message="Thank you",
+                                         phone_number='23480123456789', currencies="NGN",
+                                         custom_fields=['Favourite food', 'Age'])
+
+# get a payment link by passing the payment slug
+status, link = _link.get_by_slug(link_slug='credo-random-2')
+
+# get a payment lik by passing the id
+status, link = _link.get_by_id(link_id=63)
+
+#get transactions made through payment links
+status, transactions = _link.get_link_transactions()
+
+
+```
 
 ### Transactions
+methods 
+
+- all
+- get_one 
+- refund
 
 ```python
 from credo.transactions import Transactions
