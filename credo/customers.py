@@ -17,6 +17,9 @@ class Customers(CredoBase):
 
             Methods
             -------
+
+            fetch_all()
+
             add()
 
             update()
@@ -31,6 +34,10 @@ class Customers(CredoBase):
 
     def __init__(self, public_key: str, secret_key: str):
         super().__init__(public_key=public_key, secret_key=secret_key)
+
+    def fetch_all(self):
+        url = f"{self.BASE_URL}/third-party/customers"
+        return self.get(url=url)
 
     def add(self, full_name: str, email: str, phone_number: str, billing_address1: str,
             billing_address2: str, district: str, state: str, twitter_username: Union[str, None] = None,
@@ -95,11 +102,15 @@ class Customers(CredoBase):
             "billingAddress1": billing_address1,
             "billingsAddress2": billing_address2,
             "district": district,
-            "state": state,
-            "facebookUsername": facebook_username,
-            "twitterUsername": twitter_username,
-            "instagramUsername": instagram_username
+            "state": state
         }
+
+        if facebook_username:
+            body['facebookUsername'] = facebook_username
+        if twitter_username:
+            body['twitterUsername'] = twitter_username
+        if instagram_username:
+            body['instagramUsername'] = instagram_username
 
         return self.patch(url=url, data=body)
 
@@ -110,7 +121,7 @@ class Customers(CredoBase):
         :return:
             A Json response from Credo
         """
-        url = f"{self.BASE_URL}//hird-party/customers/{customer_id}"
+        url = f"{self.BASE_URL}/third-party/customers/{customer_id}"
         return self.get(url=url)
 
     def blacklist(self, customer_id):

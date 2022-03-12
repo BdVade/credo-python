@@ -12,15 +12,17 @@ class CredoBase:
         self.secret_key_headers = {'Content-Type': 'application/json', 'Accept': 'application/json',
                                    'Authorization': secret_key}
 
+    def _to_format(self, response: requests.Response):
+        return response.status_code, response.json()
+
     def get(self, url: str, headers: dict = None, ):
-        return requests.get(url=url, headers=headers or self.public_key_headers).json()
+        return self._to_format(requests.get(url=url, headers=headers or self.public_key_headers))
 
     def post(self, url: str, data: Union[dict, None] = None, headers: Union[None, dict] = None):
-        return requests.post(url, json=data, headers=headers or self.public_key_headers).json()
+        return self._to_format(requests.post(url, json=data, headers=headers or self.public_key_headers))
 
     def patch(self, url: str, data: Union[dict, None] = None, headers: Union[None, dict] = None):
         if data:
-            return requests.patch(url=url, json=data, headers=headers or self.public_key_headers).json()
+            return self._to_format(requests.patch(url=url, json=data, headers=headers or self.public_key_headers))
         else:
-            return requests.patch(url=url, headers=headers or self.public_key_headers).json()
-
+            return self._to_format(requests.patch(url=url, headers=headers or self.public_key_headers))

@@ -7,10 +7,10 @@ class TestBankCurrencies:
 
     # testing for the data types because these endpoints don't return a status in the json response on success
     def test_currencies(self):
-        currencies = self.instance.get_currencies()
-        print(currencies)
-        assert type(currencies) == list
+        status, currencies = self.instance.get_currencies()
+        assert status == 200
 
     def test_banks(self):
-        banks = self.instance.get_banks()
-        assert type(banks) == list
+        status, banks = self.instance.get_banks()
+        assert status == 200
+
