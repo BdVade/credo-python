@@ -84,6 +84,19 @@ methods
 - verify_card
 - three_ds_charge
 
+```python
+from credo.direct_charge import DirectCharge
+
+direct_charge = DirectCharge(public_key='your-public-key', secret_key='your-secret-key')
+
+# Charge a card without 3DS verification
+status, charge_card = direct_charge.charge_card(amount=2000, currency='NGN', card_number='5204730000001003',
+                                                        expiry_month="12", expiry_year="25", security_code="123",
+                                                        trans_ref="iy67f64hvc61", customer_email='random@mil.com',
+                                                        customer_phone="23480123456789", customer_name='Random',
+                                                        payment_slug="0H0UOEsawNjkIxgsporr")
+```
+
 ### Standard Payment
 
 methods
@@ -109,3 +122,23 @@ status, verify_payment = payment.verify_payment(transaction_reference='iy67f64hv
 
 ### Payment Link
 methods
+
+
+### Transactions
+
+```python
+from credo.transactions import Transactions
+
+
+transactions = Transactions(public_key='your-public-key', secret_key='your-secret-key')
+
+# To get a list of all your transactions
+status, all_transactions = transactions.all()
+
+# To get a transaction by it's id
+status, transaction = transactions.get_one(transaction_id=5)
+
+# refund a transaction by its id
+
+status, refund = transactions.refund(transaction_id=5)
+```
