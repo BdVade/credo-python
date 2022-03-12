@@ -1,4 +1,4 @@
-from credo_python.credo.banks_and_currencies import BanksCurrencies
+from credo.banks_and_currencies import BanksCurrencies
 from . import PUBLIC_KEY, SECRET_KEY
 
 
