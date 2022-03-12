@@ -4,7 +4,7 @@ from typing import Union
 
 class Payment(CredoBase):
     """
-           A class used to interact with the payment module of the Credo API
+           A class used to interact with the standard payments module of the Credo API
 
            ...
 

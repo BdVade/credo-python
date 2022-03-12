@@ -56,7 +56,7 @@ from credo.customers import Customers
 customers  = Customers(public_key='your-public-key', secret_key='your-secret-key')
 # Adds a customer
 status, customer = customers.add(full_name='Random Name', email='rando.nam@gmail.com',
-                                             phone_number='080123456789',
+                                             phone_number='23480123456789',
                                              billing_address1='random ', billing_address2='random', district='random',
                                              state='random',facebook_username=None,
                                              instagram_username=None,
@@ -83,3 +83,29 @@ methods
 - charge_card
 - verify_card
 - three_ds_charge
+
+### Standard Payment
+
+methods
+
+- initiate_payment
+- verify_payment
+
+```python
+from credo.payment import Payment
+
+payment = Payment(public_key='your-public-key', secret_key='your-secret-key')
+
+# to initiate a payment
+status, new_payment = payment.initiate_payment(amount=3000, currency='NGN', customer_name='Random',
+                                                         customer_email='random@gmail.com',
+                                                         customer_phone='23480123456789',
+                                                         trans_ref='iy67f64hvc62', payment_options='CARD,BANK',
+                                                         redirect_url='https://github.com/BdVade/credo-python')
+# to verify a payment
+
+status, verify_payment = payment.verify_payment(transaction_reference='iy67f64hvc62')
+```
+
+### Payment Link
+methods
