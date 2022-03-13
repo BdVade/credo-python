@@ -10,7 +10,7 @@ class TestTransactions:
         print(all_transactions)
         assert status == 200
 
-    def test_get_one(self):#
+    def test_get_one(self):
         status, transaction = self.transactions.get_one(1264)
 
         assert status == 200

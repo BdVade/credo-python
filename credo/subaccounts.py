@@ -51,7 +51,7 @@ class SubAccount(CredoBase):
         :return:
             A Json Response from Credo
         """
-        url = f"{self.BASE_URL}/third_party/subaccounts"
+        url = f"{self.BASE_URL}/third-party/subaccounts"
         body = {
             "bankId": bank_id,
             "currencyId": currency_id,
@@ -103,5 +103,5 @@ class SubAccount(CredoBase):
             "splitPercentage": split_percentage
         }
 
-        self.patch(url=url, data=body)
+        return self.patch(url=url, data=body)
 

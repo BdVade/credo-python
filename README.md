@@ -1,6 +1,6 @@
 # credo-python
 
-A python sdk for interacting with the Credo API
+A python sdk for interacting with the [Credo API](https://developers.credo.co/reference)
 
 ----
 
@@ -179,3 +179,43 @@ status, transaction = transactions.get_one(transaction_id=5)
 
 status, refund = transactions.refund(transaction_id=5)
 ```
+
+### Subaccounts
+
+methods
+
+- subaccounts
+- create_subaccount
+- get_subaccount
+- update_subaccount
+
+
+```python
+from credo.subaccounts import SubAccount
+
+_subaccounts = SubAccount(public_key='your-public-key', secret_key='your-secret-key')
+
+# get all subaccounts in your integration
+status, subaccounts = _subaccounts.subaccounts()
+
+# get one subaccount by passing its id
+
+status, subaccount = _subaccounts.get_subaccount(subaccount_id=59)
+
+# create a new subaccount
+
+status, subaccount = _subaccounts.create_subaccount(account_name='Funds', account_number='0129322920',
+                                                             personal_account_name='Funds Money', verified=True,
+                                                             split_percentage=20, bank_id=6, currency_id=2)
+
+# update a sub account 
+
+status, subaccount = _subaccounts.update_subaccount(account_name='Fund', account_number='0129322920',
+                                                             personal_account_name='Funds Money', verified=True,
+                                                             split_percentage=20, bank_id=6, currency_id=2,
+                                                             subaccount_id=59)
+```
+
+For more Information visit the [Credo API documentation](https://developers.credo.co/reference)
+
+
