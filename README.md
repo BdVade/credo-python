@@ -4,6 +4,11 @@ A python sdk for interacting with the [Credo API](https://developers.credo.co/re
 
 ----
 
+## Installation
+To Install run 
+
+`pip install credo-python`
+
 ## Usage
 
 ---
