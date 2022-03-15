@@ -1,6 +1,6 @@
 # credo-python
 
-A python sdk for interacting with the [Credo API](https://developers.credo.co/reference)
+A python sdk for interacting with the [Credo API](https://docs.credocentral.com)
 
 ----
 
@@ -221,6 +221,6 @@ status, subaccount = _subaccounts.update_subaccount(account_name='Fund', account
                                                              subaccount_id=59)
 ```
 
-For more Information visit the [Credo API documentation](https://developers.credo.co/reference)
+For more Information visit the [Credo API documentation](https://docs.credocentral.com/)
 
 
