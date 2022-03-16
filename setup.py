@@ -1,27 +1,31 @@
 import pathlib
+import requests
 from setuptools import setup
 
+response = requests.get('https://raw.githubusercontent.com/BdVade/credo-python/master/README.md')
+
+README = response.text
 # The directory containing this file
 HERE = pathlib.Path(__file__).parent
 
 # The text of the README file
-README = (HERE / "README.md").read_text()
+# README = (HERE / "README.md").read_text()
 setup(
     name="credo-python",
-    version="1.0.0",
+    version="1.0.1",
     description="A Python Wrapper for the Credo API",
     long_description=README,
     long_description_content_type="text/markdown",
     url="https://github.com/BdVade/credo-python",
     author="Aderibigbe Victor",
     author_email="victoraderibigbe03@gmail.com",
-    keywords = ['credo', 'python', 'sdk'],
+    keywords=['credo', 'python', 'sdk'],
     license="MIT",
     classifiers=[
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.8",
-        'Intended Audience :: Developers',      # Define that your audience are developers
+        'Intended Audience :: Developers',  # Define that your audience are developers
         'Topic :: Software Development :: Build Tools'
     ],
     packages=["credo"],
